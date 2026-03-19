@@ -1,0 +1,7 @@
+{
+    "name": "cache-ctf-bot",
+    "dependencies": {
+      "express": "^4.18.2",
+      "puppeteer": "^22.0.0"
+    }
+  }
