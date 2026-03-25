@@ -4,7 +4,7 @@
 
 이력서(Portfolio)를 생성하고 제출하는 웹 서비스를 모티브로 구성된 Web CTF 문제입니다.  
 
-
+<br>
 
 ## 📌 Vulnerability Overview
 Next.js 14.x 버전 이하의 Pages Router 환경에서 발생하는 Cache Poisoning을 다룹니다.
@@ -15,7 +15,7 @@ Next.js 14.x 버전 이하의 Pages Router 환경에서 발생하는 Cache Poiso
 
 브라우저는 이 텍스트를 파싱하는 과정에서 섞여 있는 HTML 태그(XSS 페이로드)를 실행하게 됩니다.
 
----
+<br>
 
 ## 🛠️ Environment & Project Structure
 * **Frontend**: Next.js (Pages Router), React
@@ -38,14 +38,14 @@ Next.js_cache_and_chains/
     └── index.js             
 ```
 
----
+<br>
 
 ## 🚩 Exploit Steps
 
 **Step 1. 취약점 포인트 탐색 및 React 방어 메커니즘 확인**
 
-- `Accept-Language` 헤더 값이 화면에 직접 렌더링되는 것을 확인할 수 있다.
-- 하지만 일반적인 HTML 요청으로 XSS 페이로드를 삽입하면, React의 자동 이스케이핑(HTML 인코딩) 처리에 의해 특수문자가 변환되어 스크립트 실행이 차단된다.
+- `Accept-Language` 헤더 값이 화면에 직접 렌더링되는 것을 확인할 수 있습니다.
+- 하지만 일반적인 HTML 요청으로 XSS 페이로드를 삽입하면, React의 자동 이스케이핑(HTML 인코딩) 처리에 의해 특수문자가 변환되어 스크립트 실행이 차단됩니다.
 
 <img src="images/image1-1.png" width="44.8%"> <img src="images/image1-2.png" width="49%">
 
@@ -53,9 +53,9 @@ Next.js_cache_and_chains/
 
 **Step 2. 우회 경로 탐색 (Next.js JSON 엔드포인트)**
 
-- HTML 렌더링 방어를 우회하기 위해 Next.js의 클라이언트 라우팅 특성을 활용할 수 있다.
-- URL에 `__nextDataReq=1` 파라미터를 추가하면 HTML 대신 JSON 데이터(`pageProps`)가 반환되며, 이 과정에서는 React의 렌더링을 거치지 않아 페이로드가 원형 그대로 삽입된다. 이때 반환 형식은 `Content-Type: application/json` 이다.
-- 이후에 다시  `__nextDataReq=1` 파라미터를 제거한 이후 일반적으로 접근하면 다음과 같이 JSON 형태를 가지면서 `Content-Type: text/html` 형식으로 반환한다.
+- HTML 렌더링 방어를 우회하기 위해 Next.js의 클라이언트 라우팅 특성을 활용할 수 있습니다.
+- URL에 `__nextDataReq=1` 파라미터를 추가하면 HTML 대신 JSON 데이터(`pageProps`)가 반환되며, 이 과정에서는 React의 렌더링을 거치지 않아 페이로드가 원형 그대로 삽입된다. 이때 반환 형식은 `Content-Type: application/json` 입니다.
+- 이후에 다시  `__nextDataReq=1` 파라미터를 제거한 이후 일반적으로 접근하면 다음과 같이 JSON 형태를 가지면서 `Content-Type: text/html` 형식으로 반환합니다.
 
 <img src="images/image2-1.png" width="49%"> <img src="images/image2-2.png" width="37.4%">
 
@@ -63,9 +63,9 @@ Next.js_cache_and_chains/
 
 **Step 3. 프레임워크 결함 연계 (Cache Poisoning)**
 
-- 악성 페이로드가 삽입된 JSON(text/html) 응답을 봇에게 전달하기 위해 Cache Poisoning을 활용한다.
-- `x-now-route-matches: 1` 헤더를 동반하여 데이터 API를 요청하면, 서버가 해당 JSON 응답을 정적 파일로 캐싱하는 프레임워크 내부 동작을 이용하여 해당 경로의 캐시를 JSON 형태로 덮어씌운다.
-- 이후엔 해당 페이지에 일반적인 요청만 보내도 캐시된 JOSN(text/html) 페이지가 리턴되어 xss가 발생한다.
+- 악성 페이로드가 삽입된 JSON(text/html) 응답을 봇에게 전달하기 위해 Cache Poisoning을 활용합니다.
+- `x-now-route-matches: 1` 헤더를 동반하여 데이터 API를 요청하면, 서버가 해당 JSON 응답을 정적 파일로 캐싱하는 프레임워크 내부 동작을 이용하여 해당 경로의 캐시를 JSON 형태로 덮어씌웁니다.
+- 이후엔 해당 페이지에 일반적인 요청만 보내도 캐시된 JSON(text/html) 페이지가 리턴되어 xss가 발생합니다.
 
 <img src="images/image3-1.png" width="49%"> <img src="images/image3-2.png" width="41%">
 
@@ -73,9 +73,9 @@ Next.js_cache_and_chains/
 
 **Step 4. 공격 및 플래그 획득**
 
-- 봇에게 파라미터가 제외된 원본 URL을 제출한다.
-- 봇은 해당 URL에 접근하고, Next.js 서버는 오염된 JSON 데이터를 `text/html` 형식으로 잘못 반환한다.
-- 결과적으로 브라우저가 이를 HTML로 파싱하면서 XSS가 실행되고 관리자의 쿠키(Flag)가 공격자의 서버로 탈취된다.
+- 봇에게 파라미터가 제외된 원본 URL을 제출합니다.
+- 봇은 해당 URL에 접근하고, Next.js 서버는 오염된 JSON 데이터를 `text/html` 형식으로 잘못 반환합니다.
+- 결과적으로 브라우저가 이를 HTML로 파싱하면서 XSS가 실행되고 관리자의 쿠키(Flag)가 공격자의 서버로 탈취됩니다.
 
 ![alt text](<images/image4.png>)
 
