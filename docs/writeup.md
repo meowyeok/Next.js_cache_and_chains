@@ -5,7 +5,7 @@
 1. [Vulnerability Overview](#vulnerability-overview)
 2. [Environment & Project Structure](#environment-project-structure)
 3. [Exploit Steps](#exploit-steps)
-4. [poc.py](#poc.py)
+4. [poc.py](#poc-py)
 5. [References](#references)
 
 <br>
@@ -17,7 +17,7 @@
 
 <br>
 
-## 📌 Vulnerability Overview
+## <a id="vulnerability-overview"></a>📌 Vulnerability Overview
 Next.js 14.x 버전 이하의 Pages Router 환경에서 발생하는 Cache Poisoning을 다룹니다.
 
 공격자는 x-now-route-matches: 1 헤더와 데이터 요청 파라미터(__nextDataReq=1)를 조작하여 서버의 데이터(JSON) 엔드포인트를 악의적인 페이로드로 오염시켜 캐싱할 수 있습니다.
@@ -28,7 +28,7 @@ Next.js 14.x 버전 이하의 Pages Router 환경에서 발생하는 Cache Poiso
 
 <br>
 
-## 🛠️ Environment & Project Structure
+## <a id="environment-project-structure"></a>🛠️ Environment & Project Structure
 * **Frontend**: Next.js (Pages Router), React
 * **Backend (Admin Bot)**: Express, Puppeteer
 * **Infrastructure**: Docker, Docker Compose
@@ -51,7 +51,7 @@ Next.js_cache_and_chains/
 
 <br>
 
-## 🚩 Exploit Steps
+## 🚩 <a id="exploit-steps"></a>Exploit Steps
 
 **Step 1. 취약점 포인트 탐색 및 React 방어 메커니즘 확인**
 
@@ -92,7 +92,7 @@ Next.js_cache_and_chains/
 
 <br>
 
-## poc.py
+## <a id="poc.py"></a>poc.py
 
 ```python
 import requests
@@ -160,5 +160,5 @@ else:
 
 <br>
 
-## 📚 References
+## <a id="references"></a>📚 References
 https://zhero-web-sec.github.io/research-and-things/nextjs-cache-and-chains-the-stale-elixir
