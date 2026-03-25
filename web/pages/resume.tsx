@@ -23,17 +23,24 @@ export default function Resume({ name, title, acceptLang }: { name: string, titl
         <p>I am highly interested in the open position and possess strong skills in web security and Next.js framework.</p>
       </div>
 
-      <div style={{ marginTop: '50px', paddingTop: '20px', borderTop: '1px solid #eee', color: '#666', fontSize: '13px' }}>
-        <p>🌍 <strong>Localization Info:</strong></p>
-        <p>This resume is auto-translated based on the reviewer's browser settings.</p>
-      </div>
-        
-      <div style={{ display: 'inline-block', background: '#f4f4f4', padding: '5px 10px', borderRadius: '4px' }}>
-      Detected Reviewer Locale: <strong>{acceptLang}</strong>
+      <div style={{ marginTop: '40px' }}>
+        <Link href="/" style={{ color: '#0070f3', textDecoration: 'none' }}>← Back to Builder</Link>
       </div>
 
-      <div style={{ marginTop: '40px' }}>
-        <Link href="/">← Back to Builder</Link>
+      <div style={{ 
+        position: 'fixed', 
+        bottom: '20px', 
+        right: '20px', 
+        background: '#fff', 
+        padding: '6px 12px', 
+        borderRadius: '20px', 
+        fontSize: '11px', 
+        color: '#888',
+        border: '1px solid #eaeaea',
+        boxShadow: '0 2px 5px rgba(0,0,0,0.05)',
+        zIndex: 1000
+      }}>
+        🌍 Locale: <strong>{acceptLang}</strong>
       </div>
     </div>
   );
