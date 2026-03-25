@@ -1,5 +1,16 @@
 # 💡 Write-up: SecFolio (Next.js Cache Poisoning to Stored XSS)
 
+## 목차
+
+1. [Vulnerability Overview](#vulnerability-overview)
+2. [Environment & Project Structure](#environment-project-structure)
+3. [Exploit Steps](#exploit-steps)
+4. [poc.py](#poc.py)
+5. [References](#references)
+
+<br>
+
+
 본 프로젝트는 PortSwigger Top 10 Web Hacking Techniques of 2025 중 7위에 선정된 `"Next.js, cache, and chains: the stale elixir"` 리서치 블로그의 내용을 기반으로 구성되었습니다.
 
 이력서(Portfolio)를 생성하고 제출하는 웹 서비스를 모티브로 구성된 Web CTF 문제입니다.  
