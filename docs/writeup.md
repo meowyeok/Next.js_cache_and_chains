@@ -160,5 +160,9 @@ else:
 
 <br>
 
+https://github.com/user-attachments/assets/7728fe1e-466c-4e07-a59b-ac43c84b6ec8
+
+<br>
+
 ## <a id="references"></a>📚 References
 https://zhero-web-sec.github.io/research-and-things/nextjs-cache-and-chains-the-stale-elixir
